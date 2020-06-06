@@ -1,11 +1,10 @@
 from django.shortcuts import render
+from django.utils import timezone
 from .models import Post
+
 def post_list(request):
-    post=Post.objects.all()
-    #context={
-     #   'post_list':post
-    #}
-    return render(request, "blog/post_list.html",{})#context)
+    posts=Post.objects.filter(published_date=timezone.now()).order_by('published_date')
+    return render(request, "blog/post_list.html",{'posts':posts})#context)
     
 
 # Create your views here.
